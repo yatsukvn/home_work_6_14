@@ -178,6 +178,8 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               // validator: (val) {
               //   return val == null ? 'Please select a country' : null;
               // },
+              onSaved: (value) =>
+                  newUser.country = value?.toString() ?? 'Not specified',
             ),
             const SizedBox(height: 20),
             TextFormField(
@@ -230,12 +232,12 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
             ),
             const SizedBox(height: 15),
             ElevatedButton(
-              child: const Text('Submit Form'),
               onPressed: _submitForm,
               style: ElevatedButton.styleFrom(
                 primary: Colors.green,
                 textStyle: const TextStyle(color: Colors.white),
               ),
+              child: const Text('Submit Form'),
               //color: Colors.green,
             ),
           ],
@@ -259,10 +261,10 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
   }
 
   String? _validateName(String? value) {
-    final _nameExp = RegExp(r'^[A-Za-z ]+$');
+    final nameExp = RegExp(r'^[A-Za-z ]+$');
     if (value == null) {
       return 'Name is reqired.';
-    } else if (!_nameExp.hasMatch(value)) {
+    } else if (!nameExp.hasMatch(value)) {
       return 'Please enter alphabetical characters.';
     } else {
       return null;
@@ -270,19 +272,19 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
   }
 
   bool _validatePhoneNumber(String input) {
-    final _phoneExp = RegExp(r'^\(\d\d\d\)\d\d\d\-\d\d\d\d$');
-    return _phoneExp.hasMatch(input);
+    final phoneExp = RegExp(r'^\(\d\d\d\)\d\d\d\-\d\d\d\d$');
+    return phoneExp.hasMatch(input);
   }
 
-  String? _validateEmail(String? value) {
-    if (value == null) {
-      return 'Email cannot be empty';
-    } else if (!_emailController.text.contains('@')) {
-      return 'Invalid email address';
-    } else {
-      return null;
-    }
-  }
+  // String? _validateEmail(String? value) {
+  //   if (value == null) {
+  //     return 'Email cannot be empty';
+  //   } else if (!_emailController.text.contains('@')) {
+  //     return 'Invalid email address';
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   String? _validatePassword(String? value) {
     if (_passController.text.length != 8) {
